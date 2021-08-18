@@ -1,0 +1,183 @@
+{% extends "base/main.html" %}
+{% block content %}
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12" style="text-align: center;">
+          <h1>Photos</h1>
+        </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+
+
+
+
+
+
+
+      <!-- /.row -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card card-default">
+            <div class="card-header">
+              <h3 class="card-title">Photos Upload <small><em>You can upload your photos</em></small></h3>
+            </div>
+            <div class="card-body">
+              
+              <div id="actions" class="row">
+                <div class="col-lg-6">
+                  <div class="btn-group w-100">
+                    <span class="btn btn-success col fileinput-button">
+                      <i class="fas fa-plus"></i>
+                      <span>Add files</span>
+                    </span>
+                    <button type="submit" class="btn btn-primary col start">
+                      <i class="fas fa-upload"></i>
+                      <span>Start upload</span>
+                    </button>
+                    <button type="reset" class="btn btn-warning col cancel">
+                      <i class="fas fa-times-circle"></i>
+                      <span>Cancel upload</span>
+                    </button>
+                  </div>
+                </div>
+                <div class="col-lg-6 d-flex align-items-center">
+                  <div class="fileupload-process w-100">
+                    <div id="total-progress" class="progress progress-striped active" role="progressbar"
+                      aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                      <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="table table-striped files" id="previews">
+                <div id="template" class="row mt-2">
+                  <div class="col-auto">
+                    <span class="preview"><img src="data:," alt="" data-dz-thumbnail /></span>
+                  </div>
+                  <div class="col d-flex align-items-center">
+                    <p class="mb-0">
+                      <span class="lead" data-dz-name></span>
+                      (<span data-dz-size></span>)
+                    </p>
+                    <strong class="error text-danger" data-dz-errormessage></strong>
+                  </div>
+                  <div class="col-4 d-flex align-items-center">
+                    <div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0"
+                      aria-valuemax="100" aria-valuenow="0">
+                      <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                    </div>
+                  </div>
+                  <div class="col-auto d-flex align-items-center">
+                    <div class="btn-group">
+                      <button class="btn btn-primary start">
+                        <i class="fas fa-upload"></i>
+                        <span>Start</span>
+                      </button>
+                      <button data-dz-remove class="btn btn-warning cancel">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Cancel</span>
+                      </button>
+                      <button data-dz-remove class="btn btn-danger delete">
+                        <i class="fas fa-trash"></i>
+                        <span>Delete</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="card card-default">
+                <div class="card-header">
+                  <h3 class="card-title">My All Photos <small><em>You can see your all photos</em></small></h3>
+                </div>
+                
+                    <div class="card-body">
+                      <div>
+                        <div class="btn-group w-100 mb-2">
+                          <a class="btn btn-info active" href="javascript:void(0)" data-filter="all"> All items </a>
+                         
+                        </div>
+                        <div class="mb-2">
+                          <a class="btn btn-secondary" href="javascript:void(0)" data-shuffle> Shuffle items </a>
+                          <div class="float-right">
+                            <select class="custom-select" style="width: auto;" data-sortOrder>
+                              <option value="index"> Sort by Position </option>
+                              <option value="sortData"> Sort by Custom Data </option>
+                            </select>
+                            <div class="btn-group">
+                              <a class="btn btn-default" href="javascript:void(0)" data-sortAsc> Ascending </a>
+                              <a class="btn btn-default" href="javascript:void(0)" data-sortDesc> Descending </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="filter-container p-0 row">
+                          <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=1" data-toggle="lightbox" data-title="sample 1 - white">
+                              <img src="/images/1.jpg" class="img-fluid mb-2" alt="white sample"/>
+                            </a>
+                          </div>
+                          <div class="filtr-item col-sm-2" data-category="2, 4" data-sort="black sample">
+                            <a href="https://via.placeholder.com/1200/000000.png?text=2" data-toggle="lightbox" data-title="sample 2 - black">
+                              <img src="/images/2.jpg" class="img-fluid mb-2" alt="black sample"/>
+                            </a>
+                          </div>
+                          <div class="filtr-item col-sm-2" data-category="3, 4" data-sort="red sample">
+                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=3" data-toggle="lightbox" data-title="sample 3 - red">
+                              <img src="/images/3.jpg" class="img-fluid mb-2" alt="red sample"/>
+                            </a>
+                          </div>
+                          <div class="filtr-item col-sm-2" data-category="3, 4" data-sort="red sample">
+                            <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=4" data-toggle="lightbox" data-title="sample 4 - red">
+                              <img src="/images/4.jpg" class="img-fluid mb-2" alt="red sample"/>
+                            </a>
+                          </div>
+                          <div class="filtr-item col-sm-2" data-category="2, 4" data-sort="black sample">
+                            <a href="https://via.placeholder.com/1200/000000.png?text=5" data-toggle="lightbox" data-title="sample 5 - black">
+                              <img src="/images/5.jpg" class="img-fluid mb-2" alt="black sample"/>
+                            </a>
+                          </div>
+                          <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=6" data-toggle="lightbox" data-title="sample 6 - white">
+                              <img src="/images/6.jpg" class="img-fluid mb-2" alt="white sample"/>
+                            </a>
+                          </div>
+                          <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                            <a href="https://via.placeholder.com/1200/FFFFFF.png?text=7" data-toggle="lightbox" data-title="sample 7 - white">
+                              <img src="/images/7.jpg" class="img-fluid mb-2" alt="white sample"/>
+                            </a>
+                          </div>
+                         
+                        </div>
+                      </div>
+      
+                    </div>
+                  </div> 
+                </div>
+                
+                </div>
+              </div>
+            </div>
+            <!-- /.card-body -->
+              
+          </div>
+
+          <!-- /.card -->
+        </div>
+
+      </div>
+
+
+      <!-- /.row -->
+    </div>
+{% endblock %}
