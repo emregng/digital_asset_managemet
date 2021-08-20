@@ -1,10 +1,19 @@
-<!------ Include the above in your HEAD tag ---------->
 {% load static %}
+
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login Page</title>
+    <title>Register Page</title>
     <!--Made with love by Mutiullah Samim -->
+    <link
+      href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+      rel="stylesheet"
+      id="bootstrap-css"
+    />
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!------ Include the above in your HEAD tag ---------->
+
     <!--Bootsrap 4 CDN-->
     <link
       rel="stylesheet"
@@ -27,20 +36,13 @@
       type="text/css"
       href="{% static 'build/css/login.css' %}"
     />
-    <link
-      href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
-      rel="stylesheet"
-      id="bootstrap-css"
-    />
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
   <body>
     <div class="container">
       <div class="d-flex justify-content-center h-100">
         <div class="card">
           <div class="card-header">
-            <h3>Login</h3>
+            <h3>Register</h3>
             <div class="d-flex justify-content-end social_icon">
               <span><i class="fab fa-facebook-square"></i></span>
               <span><i class="fab fa-google-plus-square"></i></span>
@@ -48,7 +50,7 @@
             </div>
           </div>
           <div class="card-body">
-            <form action="" method="POST">
+            <form method="POST" action="">
               {% csrf_token %}
               <div class="input-group form-group">
                 <div class="input-group-prepend">
@@ -56,12 +58,15 @@
                     ><i class="fas fa-user"></i
                   ></span>
                 </div>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="username"
-                  placeholder="Kullanıcı Adı"
-                />
+                {{form.username}}
+              </div>
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fas fa-user"></i
+                  ></span>
+                </div>
+                {{form.email}}
               </div>
               <div class="input-group form-group">
                 <div class="input-group-prepend">
@@ -69,41 +74,51 @@
                     ><i class="fas fa-key"></i
                   ></span>
                 </div>
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  placeholder="Password"
-                />
+                {{form.password1}}
               </div>
-              <div class="row align-items-center remember">
-                <input type="checkbox" />Remember Me
+              <div class="input-group form-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"
+                    ><i class="fas fa-key"></i
+                  ></span>
+                </div>
+                {{form.password2}}
               </div>
+
               <div class="form-group">
                 <input
                   type="submit"
-                  value="Login"
+                  value="Register"
                   class="btn float-right login_btn"
                 />
               </div>
             </form>
           </div>
+
+          {{form.errors}}
+
           <div class="card-footer">
             <div class="d-flex justify-content-center links">
-              Don't have an account?<a
-                href="{% url 'accounts:register' %}"
+              Do you have an account?<a
+                href="{% url 'accounts:login' %}"
                 style="color: #ffc312"
-                >Register</a
-              >
-            </div>
-            <div class="d-flex justify-content-center">
-              <a href="/forgotpassword.html" style="color: #ffc312"
-                >Forgot your password?</a
+                >Login</a
               >
             </div>
           </div>
         </div>
       </div>
     </div>
+    <script>
+      var form_fields = document.getElementsByTagName("input");
+      form_fields[1].placeholder = "Enter username";
+      form_fields[2].placeholder = "Enter email";
+      form_fields[3].placeholder = "Enter password";
+      form_fields[4].placeholder = "Re-enter password";
+
+      for (var field in form_fields) {
+        form_fields[field].className += " form-control";
+      }
+    </script>
   </body>
 </html>

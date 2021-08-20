@@ -75,25 +75,10 @@ WSGI_APPLICATION = 'digital_asset.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'digital_asset',
-        'USER': 'mamp',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '8889',
-        'OPTIONS': {
-            'autocommit':True,
-
-        }
-       
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
