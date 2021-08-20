@@ -1,22 +1,22 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
+{% load static %}
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | DataTables</title>
+  <title>Digital Asset Management</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css %}">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}">
   <link rel="stylesheet" href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}">
+  <link rel="stylesheet" href="{% static 'plugins/select2/css/select2.min.css' %}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
 </head>
@@ -31,7 +31,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-          <a href="index.html" class="nav-link">Home</a>
+          <a href="index2.html" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Contact</a>
@@ -40,6 +40,7 @@
 
       <!-- Right navbar links -->
       <ul class="navbar-nav ml-auto">
+        
         <!-- Navbar Search -->
         <li class="nav-item">
           <a class="nav-link" data-widget="navbar-search" href="#" role="button">
@@ -62,10 +63,13 @@
           </div>
         </li>
         <li class="nav-item">
-        <a href="/login.html"><button type="button" class="btn btn-round btn-primary">Login</button></a>
-        
-        <a href="/register.html"><button type="button" class="btn btn-round btn-primary">Register</button></a>
-      </li>
+          {% if request.user.is_authenticated%}
+          <a href="{% url 'accounts:logout' %}">
+            <button class="btn btn-danger">Logout</button>
+          </a>
+          {% endif %}
+        </li>
+
       </ul>
     </nav>
     <!-- /.navbar -->
@@ -73,7 +77,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index.html" class="brand-link">
+      <a href="index2.html" class="brand-link">
         <img src="/images/Cloud.ico" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">DAM</span>
@@ -84,10 +88,10 @@
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
           <div class="image">
-            <img src="/images/Media.ico" class="img-circle elevation-2" alt="User Image">
+            <img src="{% static  'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Welcome</a>
+            <a href="#" class="d-block">Welcome, {{request.user.username}}</a>
           </div>
         </div>
 
@@ -100,48 +104,45 @@
                with font-awesome or any other icon font library -->
           
                <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'website:home' %}" class="nav-link">
                   <i class="nav-icon fas fa-chart-pie"></i>
                   <p>
                     Medias
-                    <i class="right fas fa-angle-left"></i>
                   </p>
                 </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="{% url 'website:photos' %}" class="nav-link">
-                      <i class="far fa-image"></i>
-                      <p>Photos</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="fas fa-music"></i>
-                      <p>Musics</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="fas fa-video"></i>
-                      <p>Videos</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="fas fa-folder"></i>
-                      <p>Documents</p>
-                    </a>
-                  </li>
-                </ul>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="/favorites.html" class="nav-link">
                   <i class="nav-icon fas fa-star"></i>
                   <p>Favorites</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{% url 'website:photos' %}" class="nav-link">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>Photos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="musics.html" class="nav-link">
+                  <i class="nav-icon fas fa-music"></i>
+                  <p>Musics</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="videos.html" class="nav-link">
+                  <i class="nav-icon fas fa-video"></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="documents.html" class="nav-link">
+                  <i class="nav-icon fas fa-folder"></i>
+                  <p>Documents</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="recyclebin.html" class="nav-link">
                   <i class="nav-icon fas fa-trash"></i>
                   <p>
                     Recycle bin
@@ -160,10 +161,9 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-      
-      {% block content %}
+    {% block content %}
 
-      {% endblock %}
+    {% endblock %}
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
@@ -196,10 +196,11 @@
   <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
   <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
   <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+  <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
   <!-- AdminLTE App -->
   <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
   <!-- AdminLTE for demo purposes -->
-  <script src="{% static 'dist/js/demo.js' %}"></script>
+  <script src="{% static 'dist/js/demo.js' %}"></script>
   <!-- Page specific script -->
   <script>
     $(function () {
@@ -218,6 +219,11 @@
       });
     });
   </script>
+  <script>
+    $(function () {
+      $('.select2').select2()
+    });
+</script>
 </body>
 
-</html>
+</html
