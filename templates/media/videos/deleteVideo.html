@@ -1,0 +1,24 @@
+{% extends 'base/main.html' %}
+<!--aa-->
+{% block content %}
+
+<h2>Are you sure you want to delete "{{item}}"?</h2>
+
+<form
+  action="{% url 'media:delete_video' item.id %}"
+  method="POST"
+  enctype="multipart/form-data"
+>
+  {% csrf_token %}
+  <a
+    href="{% url 'media:videos' %}"
+    data-dz-remove
+    class="btn btn-warning cancel"
+  >
+    <i class="fas fa-times-circle"></i>
+    <span>Cancel</span>
+  </a>
+
+  <input type="submit" name="Confirm" />
+</form>
+{% endblock %}

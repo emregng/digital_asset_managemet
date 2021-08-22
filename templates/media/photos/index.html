@@ -1,0 +1,344 @@
+{% extends "base/main.html" %}
+{% block content %}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12" style="text-align: center;">
+          <h1>Photos</h1>
+        </div>
+
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <!-- /.row -->
+
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-default">
+              <div class="card-header">
+                <h3 class="card-title">Photos Upload <small><em>You can upload your photos</em></small></h3>
+              </div>
+              <div class="card-body">
+
+                <div id="actions" class="row">
+                  <div class="col-lg-6">
+                    <div class="btn-group w-100">
+                      <span class="btn btn-success col fileinput-button">
+                        <i class="fas fa-plus"></i>
+                        <span>Add files</span>
+                      </span>
+                      <button  class="btn btn-primary col start">
+                        <i class="fas fa-upload"></i>
+                        <span>Start upload</span>
+                      </button>
+                      <button  type="reset" class="btn btn-warning col cancel">
+                        <i class="fas fa-times-circle"></i>
+                        <span>Cancel upload</span>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 d-flex align-items-center">
+                    <div class="fileupload-process w-100">
+                      <div id="total-progress" class="progress progress-striped active" role="progressbar"
+                        aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="table table-striped files" id="previews">
+                  <div id="template" class="row mt-2">
+                    <div class="col-auto">
+                      <span class="preview"><img  id="avatar" src="data:," alt="" data-dz-thumbnail /></span>
+                    </div>
+                    <div class="col d-flex align-items-center">
+                      <p class="mb-0">
+                        <span class="lead" data-dz-name></span>
+                        (<span data-dz-size></span>)
+                      </p>
+                      <strong class="error text-danger" data-dz-errormessage></strong>
+                    </div>
+                    <div class="col-4 d-flex align-items-center">
+                      <div class="progress progress-striped active w-100" role="progressbar" aria-valuemin="0"
+                        aria-valuemax="100" aria-valuenow="0">
+                        <div class="progress-bar progress-bar-success" style="width:0%;" data-dz-uploadprogress></div>
+                      </div>
+                    </div>
+                    <div class="col-auto d-flex align-items-center">
+                      <div class="btn-group">
+                        <button type="submit" class="btn btn-primary start">
+                          <i class="fas fa-upload"></i>
+                          <span>Start</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-warning cancel">
+                          <i class="fas fa-times-circle"></i>
+                          <span>Cancel</span>
+                        </button>
+                        <button data-dz-remove class="btn btn-danger delete">
+                          <i class="fas fa-trash"></i>
+                          <span>Delete</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card card-default">
+                  <div class="card-header">
+                    <h3 class="card-title">My All Photos <small><em>You can see your all photos</em></small></h3>
+                  </div>
+                  <form action="" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                      <div class="card-body">
+                        <div>
+                          <div class="btn-group w-100 mb-2">
+                            <button name="all_item" class="btn btn-info active" href="javascript:void(0)" data-filter="all"> All items </button>
+
+                          </div>
+                          <div class="mb-2">
+                            <button type="submit" name="shuffle_item" class="btn btn-secondary" href="javascript:void(0)" data-shuffle> Shuffle items </button>
+                            <div class="float-right">
+                              <!-- <select class="custom-select" style="width: auto;" data-sortOrder>
+                                <option value="index"> Sort by Position </option>
+                                <option value="sortData"> Sort by Custom Data </option>
+                              </select> -->
+                              <div class="btn-group">
+                                <button name="ascending" class="btn btn-default" href="javascript:void(0)" data-sortAsc> Ascending </button>
+                                <button name="descending" class="btn btn-default" href="javascript:void(0)" data-sortDesc> Descending </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div>
+                          <div class="filter-container p-0 row">
+                            {% for item in photos %}
+                            <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                              <a href="/static/{{item.photo.url}}" data-toggle="lightbox" data-title="sample 1 - white">
+                                <img src="{{item.photo.url}}" class="img-fluid mb-2" alt="white sample"/>
+                              </a>
+                            </div>
+                            {% endfor %}
+                            <!-- <div class="filtr-item col-sm-2" data-category="2, 4" data-sort="black sample">
+                              <a href="https://via.placeholder.com/1200/000000.png?text=2" data-toggle="lightbox" data-title="sample 2 - black">
+                                <img src="/images/2.jpg" class="img-fluid mb-2" alt="black sample"/>
+                              </a>
+                            </div>
+                            <div class="filtr-item col-sm-2" data-category="3, 4" data-sort="red sample">
+                              <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=3" data-toggle="lightbox" data-title="sample 3 - red">
+                                <img src="/images/3.jpg" class="img-fluid mb-2" alt="red sample"/>
+                              </a>
+                            </div>
+                            <div class="filtr-item col-sm-2" data-category="3, 4" data-sort="red sample">
+                              <a href="https://via.placeholder.com/1200/FF0000/FFFFFF.png?text=4" data-toggle="lightbox" data-title="sample 4 - red">
+                                <img src="/images/4.jpg" class="img-fluid mb-2" alt="red sample"/>
+                              </a>
+                            </div>
+                            <div class="filtr-item col-sm-2" data-category="2, 4" data-sort="black sample">
+                              <a href="https://via.placeholder.com/1200/000000.png?text=5" data-toggle="lightbox" data-title="sample 5 - black">
+                                <img src="/images/5.jpg" class="img-fluid mb-2" alt="black sample"/>
+                              </a>
+                            </div>
+                            <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                              <a href="https://via.placeholder.com/1200/FFFFFF.png?text=6" data-toggle="lightbox" data-title="sample 6 - white">
+                                <img src="/images/6.jpg" class="img-fluid mb-2" alt="white sample"/>
+                              </a>
+                            </div>
+                            <div class="filtr-item col-sm-2" data-category="1" data-sort="white sample">
+                              <a href="https://via.placeholder.com/1200/FFFFFF.png?text=7" data-toggle="lightbox" data-title="sample 7 - white">
+                                <img src="/images/7.jpg" class="img-fluid mb-2" alt="white sample"/>
+                              </a>
+                            </div> -->
+
+                          </div>
+                        </div>
+
+                      </div>
+                  </form>
+                    </div>
+                  </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-body -->
+
+            </div>
+
+            <!-- /.card -->
+          </div>
+
+        </div>
+
+
+
+      <!-- /.row -->
+    </div>
+    <script>    $(function () {
+      //Initialize Select2 Elements
+      $('.select2').select2()
+
+      //Initialize Select2 Elements
+      $('.select2bs4').select2({
+        theme: 'bootstrap4'
+      })
+
+      //Datemask dd/mm/yyyy
+      $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+      //Datemask2 mm/dd/yyyy
+      $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+      //Money Euro
+      $('[data-mask]').inputmask()
+
+      //Date picker
+      $('#reservationdate').datetimepicker({
+        format: 'L'
+      });
+
+      //Date and time picker
+      $('#reservationdatetime').datetimepicker({ icons: { time: 'far fa-clock' } });
+
+      //Date range picker
+      $('#reservation').daterangepicker()
+      //Date range picker with time picker
+      $('#reservationtime').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+          format: 'MM/DD/YYYY hh:mm A'
+        }
+      })
+      //Date range as a button
+      $('#daterange-btn').daterangepicker(
+        {
+          ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+          },
+          startDate: moment().subtract(29, 'days'),
+          endDate: moment()
+        },
+        function (start, end) {
+          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+        }
+      )
+
+      //Timepicker
+      $('#timepicker').datetimepicker({
+        format: 'LT'
+      })
+
+      //Bootstrap Duallistbox
+      $('.duallistbox').bootstrapDualListbox()
+
+      //Colorpicker
+      $('.my-colorpicker1').colorpicker()
+      //color picker with addon
+      $('.my-colorpicker2').colorpicker()
+
+      $('.my-colorpicker2').on('colorpickerChange', function (event) {
+        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
+      })
+
+      $("input[data-bootstrap-switch]").each(function () {
+        $(this).bootstrapSwitch('state', $(this).prop('checked'));
+      })
+
+    })
+    // BS-Stepper Init
+    document.addEventListener('DOMContentLoaded', function () {
+      window.stepper = new Stepper(document.querySelector('.bs-stepper'))
+    })
+
+    // DropzoneJS Demo Code Start
+    Dropzone.autoDiscover = false
+
+    // Get the template HTML and remove it from the doumenthe template HTML and remove it from the doument
+    var previewNode = document.querySelector("#template")
+    previewNode.id = ""
+    var previewTemplate = previewNode.parentNode.innerHTML
+    previewNode.parentNode.removeChild(previewNode)
+
+    var myDropzone = new Dropzone(document.body, {
+      url: "{% url 'media:add-photo'  %}", // Set the url
+      headers: {'X-CSRFToken': '{{ csrf_token }}'},
+      thumbnailWidth: 80,
+      thumbnailHeight: 80,
+      parallelUploads: 20,
+      previewTemplate: previewTemplate,
+      autoQueue: false, // Make sure the files aren't queued until manually added
+      previewsContainer: "#previews", // Define the container to display the previews
+      clickable: ".fileinput-button" ,
+      paramName: "file",
+
+
+      // Define the element that should be used as click trigger to select files.
+    })
+
+    myDropzone.on("addedfile", function (file) {
+      file.previewElement.querySelector(".start").onclick = function () { myDropzone.enqueueFile(file) }
+    })
+
+
+    // Update the total progress bar
+    myDropzone.on("totaluploadprogress", function (progress) {
+      document.querySelector("#total-progress .progress-bar").style.width = progress + "%"
+
+    })
+
+    myDropzone.on("sending", function (file) {
+      // Show the total progress bar when upload starts
+      document.querySelector("#total-progress").style.opacity = "1"
+
+      // And disable the start button
+      file.previewElement.querySelector(".start").setAttribute("disabled", "disabled")
+
+    })
+
+    // Hide the total progress bar when nothing's uploading anymore
+    myDropzone.on("queuecomplete", function (progress) {
+      document.querySelector("#total-progress").style.opacity = "0"
+     
+      setTimeout(function(){ 
+        
+          window.location.href = "/photos/";
+          
+        },1200);
+          Swal.fire(
+            {
+            title: 'Good job!',
+            icon: "success",
+            text: 'You added your photos!',
+            showConfirmButton: false},
+            
+      
+ 
+        )
+
+      // window.setTimeout("window.location.href='/photos/", 1000);
+    })
+
+    // Setup the buttons for all transfers
+    // The "add files" button doesn't need to be setup because the config
+    // `clickable` has already been specified.
+    document.querySelector("#actions .start").onclick = function () {
+      myDropzone.enqueueFiles(myDropzone.getFilesWithStatus(Dropzone.ADDED))
+
+
+    }
+    document.querySelector("#actions .cancel").onclick = function () {
+      myDropzone.removeAllFiles(true)
+    }
+  // DropzoneJS Demo Code End
+    </script>
+{% endblock %}

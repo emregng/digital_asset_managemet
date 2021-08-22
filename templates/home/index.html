@@ -1,0 +1,254 @@
+{% extends "base/main.html" %}
+{% block content %}
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12" style="text-align: center;">
+          <h1 >Digital Asset Management</h1>
+        </div>
+        
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
+  <div class="container-fluid">
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+      <div class="col-lg-4 col-6">
+        <!-- small box -->
+        <div class="small-box bg-info">
+          <div class="inner">
+            <h3>150</h3>
+
+            <p>Assets</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-bag"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-4 col-6">
+        <!-- small box -->
+        <div class="small-box bg-success">
+          <div class="inner">
+            <h3>53<sup style="font-size: 20px">%</sup></h3>
+
+            <p>Solidity Ratio</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+      <!-- ./col -->
+      <div class="col-lg-4 col-6">
+        <!-- small box -->
+        <div class="small-box bg-warning">
+          <div class="inner">
+            <h3>44</h3>
+
+            <p>User Registrations</p>
+          </div>
+          <div class="icon">
+            <i class="ion ion-person-add"></i>
+          </div>
+          <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row -->
+    <!-- Main row -->
+    <div class="row">
+     
+    </div>
+    <!-- /.row (main row) -->
+  </div><!-- /.container-fluid -->
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="container-fluid">
+      <h2 class="text-center display-4">Enhanced Search</h2>
+      <form action="enhancedresults.html">
+          <div class="row">
+              <div class="col-md-10 offset-md-1">
+                  <div class="row">
+                      <div class="col-6">
+                          <div class="form-group">
+                              <label>Result Type:</label>
+                              <select class="select2" multiple="multiple" data-placeholder="Any" style="width: 100%;">
+                                  <option>Documents</option>
+                                  <option>Images</option>
+                                  <option>Video</option>
+                                  <option>Musics</option>
+                                  <option>All</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-3">
+                          <div class="form-group">
+                              <label>Sort Order:</label>
+                              <select class="select2" style="width: 100%;">
+                                  <option selected>A-Z</option>
+                                  <option>Z-A</option>
+                              </select>
+                          </div>
+                      </div>
+                      <div class="col-3">
+                          <div class="form-group">
+                              <label>Order By:</label>
+                              <select class="select2" style="width: 100%;">
+                                  <option selected>File Name</option>
+                                  <option>Upload Date</option>
+                                  <option>Size</option>
+                                  <option>Type</option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="input-group input-group-lg">
+                          <input type="search" class="form-control form-control-lg" placeholder="Type your keywords here" value="">
+                          <div class="input-group-append">
+                            
+                              <button type="submit" class="btn btn-lg btn-default">
+                                  <i class="fa fa-search"></i>
+                              </button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">My All Media Files</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>File Name</th>
+                    <th>Type</th>
+                    <th>Upload Date</th>
+                    <th>Size</th>
+                    <th>View</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Aphoto</td>
+                    <td>Photo</td>
+                    <td>2021.12.24</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Bphoto</td>
+                    <td>Photo</td>
+                    <td>2019.12.24</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Cphoto</td>
+                    <td>Photo</td>
+                    <td>2020.12.24</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr><tr>
+                    <td>Dphoto</td>
+                    <td>Photo</td>
+                    <td>2018.12.16</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Ephoto</td>
+                    <td>Photo</td>
+                    <td>2016.12.22</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Fphoto</td>
+                    <td>Photo</td>
+                    <td>2015.12.21</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Gphoto</td>
+                    <td>Photo</td>
+                    <td>2014.12.24</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Myphoto</td>
+                    <td>Photo</td>
+                    <td>2013.12.24</td>
+                    <td>1.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Avideo</td>
+                    <td>Video</td>
+                    <td>2012.12.24</td>
+                    <td>26.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Avideo</td>
+                    <td>Video</td>
+                    <td>2012.12.24</td>
+                    <td>26.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Avideo</td>
+                    <td>Video</td>
+                    <td>2012.12.24</td>
+                    <td>26.4MB</td>
+                    <td>View</td>
+                  </tr>
+                  <tr>
+                    <td>Avideo</td>
+                    <td>Video</td>
+                    <td>2012.12.24</td>
+                    <td>26.4MB</td>
+                    <td>View</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>File Name</th>
+                    <th>Type</th>
+                    <th>Upload date</th>
+                    <th>Size</th>
+                    <th>View</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+
+      <!-- /.container-fluid -->
+  </section>
+  <!-- /.content -->
+{% endblock %}
