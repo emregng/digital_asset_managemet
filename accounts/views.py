@@ -4,9 +4,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import Group
 
 from .forms import CreateUserForm
-from media.forms import AccountForm
 from .decorators import unauthenticated_user
-from media.models import Account
+from media.models import Customer
 
 # Create your views here.
 
@@ -44,7 +43,7 @@ def view_register(request):
             group = Group.objects.get(name='admin')
             user.groups.add(group)
 
-            Account.objects.create(
+            Customer.objects.create(
                 user=user,
             )
 

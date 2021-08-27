@@ -1,16 +1,16 @@
 from django import forms
 
-from .models import Video, Account
+from .models import *
 
 
 class VideoForm(forms.ModelForm):
     class Meta:
         model = Video
-        fields = ['caption', 'description', 'video', 'tag']
+        fields = ['caption', 'description', 'video']
 
 
-class AccountForm(forms.ModelForm):
+class CustomerForm(forms.ModelForm):
     class Meta:
-        model = Account
+        model = Customer
         fields = '__all__'
         exclude = ['user']

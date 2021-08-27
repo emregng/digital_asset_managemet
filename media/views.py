@@ -4,12 +4,10 @@ from django.http.response import HttpResponse
 
 from .forms import VideoForm
 from .models import *
-from accounts.decorators import allowed_users
 # Create your views here.
 
 
 @login_required(redirect_field_name='accounts:login')
-@allowed_users(allowed_roles=['admin'])
 def video_gallery(request):
     all_video = Video.objects.all()
     if request.method == "POST":
@@ -58,6 +56,6 @@ def delete_video(request, pk):
 def add_photo(request):
     if request.method == 'POST':
         data = request.FILES['file']
-        Photos.objects.create(photo=data,creation_user=request.user)
-     
+        Photos.objects.create(photo=data, creation_user=request.user)
+
     return HttpResponse('Ok')

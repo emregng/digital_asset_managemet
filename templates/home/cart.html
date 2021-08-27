@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% load static %}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Videos</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
+    />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+    />
+    <!-- daterange picker -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/daterangepicker/daterangepicker.css' %}"
+    />
+    <!-- iCheck for checkboxes and radio inputs -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}"
+    />
+    <!-- Bootstrap Color Picker -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css' %}"
+    />
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css' %}"
+    />
+    <!-- Select2 -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/select2/css/select2.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css' %}"
+    />
+    <!-- Bootstrap4 Duallistbox -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css' %}"
+    />
+    <!-- BS Stepper -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/bs-stepper/css/bs-stepper.min.css' %}"
+    />
+    <!-- dropzonejs -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/dropzone/min/dropzone.min.css' %}"
+    />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}" />
+
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+
+      function getToken(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== "") {
+          const cookies = document.cookie.split(";");
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      const csrftoken = getToken("csrftoken");
+    </script>
+  </head>
+
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <!-- Navbar -->
+      <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" data-widget="pushmenu" href="#" role="button"
+              ><i class="fas fa-bars"></i
+            ></a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="index2.html" class="nav-link">Home</a>
+          </li>
+          <li class="nav-item d-none d-sm-inline-block">
+            <a href="#" class="nav-link">Contact</a>
+          </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+          <!-- Navbar Search -->
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              data-widget="navbar-search"
+              href="#"
+              role="button"
+            >
+              <i class="fas fa-search"></i>
+            </a>
+            <div class="navbar-search-block">
+              <form class="form-inline">
+                <div class="input-group input-group-sm">
+                  <input
+                    class="form-control form-control-navbar"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                  />
+                  <div class="input-group-append">
+                    <button class="btn btn-navbar" type="submit">
+                      <i class="fas fa-search"></i>
+                    </button>
+                    <button
+                      class="btn btn-navbar"
+                      type="button"
+                      data-widget="navbar-search"
+                    >
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </li>
+          <li class="nav-item">
+            {% if request.user.is_authenticated%}
+            <a href="{% url 'accounts:logout' %}">
+              <button class="btn btn-danger">Logout</button>
+            </a>
+            {% endif %}
+          </li>
+        </ul>
+      </nav>
+      <!-- /.navbar -->
+
+      <!-- Main Sidebar Container -->
+      <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index2.html" class="brand-link">
+          <img
+            src="{% static 'images/Cloud.ico' %}"
+            alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3"
+            style="opacity: 0.8"
+          />
+          <span class="brand-text font-weight-light">DAM</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+          <!-- Sidebar user (optional) -->
+          <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+              <img
+                src="{% static  'dist/img/user2-160x160.jpg' %}"
+                class="img-circle elevation-2"
+                alt="User Image"
+              />
+            </div>
+            <div class="info">
+              <a href="#" class="d-block">Welcome, {{request.user.username}}</a>
+            </div>
+          </div>
+
+          <!-- Sidebar Menu -->
+          <nav class="mt-2">
+            <ul
+              class="nav nav-pills nav-sidebar flex-column"
+              data-widget="treeview"
+              role="menu"
+              data-accordion="false"
+            >
+              <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+              <li class="nav-item">
+                <a href="{% url 'website:home' %}" class="nav-link">
+                  <i class="nav-icon fas fa-chart-pie"></i>
+                  <p>Medias</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/favorites.html" class="nav-link">
+                  <i class="nav-icon fas fa-star"></i>
+                  <p>Favorites</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'website:photos' %}" class="nav-link">
+                  <i class="nav-icon far fa-image"></i>
+                  <p>Photos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="musics.html" class="nav-link">
+                  <i class="nav-icon fas fa-music"></i>
+                  <p>Musics</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{% url 'media:videos' %}" class="nav-link">
+                  <i class="nav-icon fas fa-video"></i>
+                  <p>Videos</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="documents.html" class="nav-link">
+                  <i class="nav-icon fas fa-folder"></i>
+                  <p>Documents</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="recyclebin.html" class="nav-link">
+                  <i class="nav-icon fas fa-trash"></i>
+                  <p>Recycle bin</p>
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <!-- /.sidebar-menu -->
+        </div>
+        <!-- /.sidebar -->
+      </aside>
+
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <div class="col-sm-12" style="text-align: center">
+                <h1>Cart</h1>
+              </div>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <!-- /.row -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card card-default">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      Cart <small><em>You can see your cart items.</em></small>
+                    </h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="invoice p-3 mb-3">
+                      <!-- title row -->
+
+                      <!-- /.row -->
+
+                      <!-- Table row -->
+                      <div class="row">
+                        <div class="col-12 table-responsive">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>Product</th>
+                                <th>Name</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {% for item in items %}
+                              <tr>
+                                <td>
+                                  <video width="320" height="240" controls>
+                                    <source
+                                      src="{{item.video.video.url}}"
+                                      type="video/mp4"
+                                    />
+                                  </video>
+                                </td>
+                                <td>{{item.video.caption}}</td>
+                                <td>{{item.video.description}}</td>
+                                <td>${{item.video.price|floatformat:2}}</td>
+                                <td>
+                                  <button
+                                    type="button"
+                                    class="btn btn-primary update-cart"
+                                    data-video="{{item.video.id}}"
+                                    data-action="remove"
+                                  >
+                                    <i
+                                      title="Delete"
+                                      class="far fa-trash-alt"
+                                    ></i>
+                                  </button>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <div class="row">
+                        <!-- accepted payments column -->
+                        <div class="col-6">
+                          <p class="lead">Payment Methods:</p>
+                          <img
+                            src="{% static 'dist/img/credit/visa.png' %}"
+                            alt="Visa"
+                          />
+                          <img
+                            src="{% static 'dist/img/credit/mastercard.png' %}"
+                            alt="Mastercard"
+                          />
+                          <img
+                            src="{% static 'dist/img/credit/american-express.png' %}"
+                            alt="American Express"
+                          />
+                          <img
+                            src="{% static 'dist/img/credit/paypal2.png' %}"
+                            alt="Paypal"
+                          />
+
+                          <p
+                            class="text-muted well well-sm shadow-none"
+                            style="margin-top: 10px"
+                          >
+                            Lorem ipsum dolor sit amet consectetur, adipisicing
+                            elit. Velit, hic.
+                          </p>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-6">
+                          <p class="lead">Amount: {{order.get_cart_items}}</p>
+
+                          <div class="table-responsive">
+                            <table class="table">
+                              <tr>
+                                <th>Total:</th>
+                                <td>${{order.get_cart_total|floatformat:2}}</td>
+                              </tr>
+                            </table>
+                          </div>
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+
+                      <!-- this row will not appear when printing -->
+                      <div class="row no-print">
+                        <div class="col-12">
+                          <a href="#">
+                            <button
+                              type="button"
+                              class="btn btn-success float-right"
+                            >
+                              <i class="far fa-credit-card"></i> Submit Payment
+                            </button>
+                          </a>
+                          <a href="{% url 'website:video_market' %}">
+                            <button
+                              type="button"
+                              class="btn btn-primary float-right"
+                            >
+                              <i class="fas fa-angle-left"></i> Continue
+                              Shopping
+                            </button>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- /.card-body -->
+                </div>
+
+                <!-- /.card -->
+              </div>
+            </div>
+
+            <!-- /.row -->
+          </div>
+          <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+      </div>
+      <!-- /.content-wrapper -->
+      <footer class="main-footer">
+        <strong>Created by İKÜ Development Team&copy; 2021 .</strong>
+      </footer>
+
+      <!-- Control Sidebar -->
+      <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+      </aside>
+      <!-- /.control-sidebar -->
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Select2 -->
+    <script src="{% static 'plugins/select2/js/select2.full.min.js' %}"></script>
+    <!-- Bootstrap4 Duallistbox -->
+    <script src="{% static 'plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js' %}"></script>
+    <!-- InputMask -->
+    <script src="{% static 'plugins/moment/moment.min.js' %}"></script>
+    <script src="{% static 'plugins/inputmask/jquery.inputmask.min.js' %}"></script>
+    <!-- date-range-picker -->
+    <script src="{% static 'plugins/daterangepicker/daterangepicker.js' %}"></script>
+    <!-- bootstrap color picker -->
+    <script src="{% static 'plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js' %}"></script>
+    <!-- Tempusdominus Bootstrap 4 -->
+    <script src="{% static 'plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+    <!-- Bootstrap Switch -->
+    <script src="{% static 'plugins/bootstrap-switch/js/bootstrap-switch.min.js' %}"></script>
+    <!-- BS-Stepper -->
+    <script src="{% static 'plugins/bs-stepper/js/bs-stepper.min.js' %}"></script>
+    <!-- dropzonejs -->
+    <script src="{% static 'plugins/dropzone/min/dropzone.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <!-- Page specific script -->
+    <script
+      type="text/javascript"
+      src="{% static 'build/js/cart.js' %}"
+    ></script>
+  </body>
+</html>

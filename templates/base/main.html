@@ -74,6 +74,13 @@
           </div>
         </li>
         <li class="nav-item">
+          
+          <a href="{% url 'website:video_market' %}">
+            <button class="btn btn-danger">Market</button>
+          </a>
+          
+        </li>
+        <li class="nav-item">
           {% if request.user.is_authenticated%}
           <a href="{% url 'accounts:logout' %}">
             <button class="btn btn-danger">Logout</button>
