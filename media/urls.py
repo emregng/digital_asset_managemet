@@ -9,4 +9,5 @@ urlpatterns = [
     path('videos/delete_video/<str:pk>',
          views.delete_video, name="delete_video"),
     path('add-photo/', views.add_photo,name = "add-photo"),
+    path('audios/', views.audio, name="audios"),
 ]

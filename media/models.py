@@ -19,7 +19,7 @@ class Customer(models.Model):
 class Video(models.Model):
     caption = models.CharField(max_length=100)
     description = models.CharField(max_length=200, null=True)
-    price = models.FloatField()
+    price = models.FloatField(null=True)
     video = models.FileField(upload_to="video/%y", validators=[file_size])
     date_created = models.DateTimeField(auto_now_add=True)
 
@@ -37,6 +37,18 @@ class Photos(models.Model):
 
     def __str__(self):
         return self.name
+
+class Audio(models.Model):
+    title= models.TextField()
+    artist= models.TextField()
+    image= models.ImageField()
+    audio_file = models.FileField(upload_to='audios/%y',blank=True,null=True)
+    audio_link = models.CharField(max_length=200,blank=True,null=True)
+    duration=models.CharField(max_length=20)
+    date_created = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.title
 
 
 class Order(models.Model):

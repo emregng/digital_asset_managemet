@@ -25,6 +25,12 @@ def video_gallery(request):
 
     return render(request, 'media/videos/videos.html', context)
 
+@login_required(redirect_field_name='accounts:login')
+def audio(request):
+    audio = Audio.objects.all()
+    context={"audio":audio}
+    return render(request,"media/audios/audios.html",context)
+
 
 def update_video(request, pk):
 
