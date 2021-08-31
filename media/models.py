@@ -38,13 +38,15 @@ class Photos(models.Model):
     def __str__(self):
         return self.name
 
+
 class Audio(models.Model):
-    title= models.TextField()
-    artist= models.TextField()
-    image= models.ImageField()
-    audio_file = models.FileField(upload_to='audios/%y',blank=True,null=True)
-    audio_link = models.CharField(max_length=200,blank=True,null=True)
-    duration=models.CharField(max_length=20)
+    title = models.CharField(max_length=100)
+    artist = models.CharField(max_length=100)
+    image = models.ImageField()
+    audio_file = models.FileField(upload_to='audios/%y', blank=True, null=True)
+    price = models.FloatField(null=True)
+    audio_link = models.CharField(max_length=200, blank=True, null=True)
+    duration = models.CharField(max_length=20)
     date_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
