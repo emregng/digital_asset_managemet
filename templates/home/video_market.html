@@ -2,24 +2,44 @@
 {% load static %}
 <html>
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Video Market</title>
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1"
-    />
-
+    <!-- Google Font: Source Sans Pro -->
     <link
       rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"
     />
-
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
-      type="text/css"
-      href="{% static 'build/css/main.css' %}"
+      href="{% static 'plugins/fontawesome-free/css/all.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"
+    />
+    <!-- DataTables -->
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-bs4/css/dataTables.bootstrap4.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-responsive/css/responsive.bootstrap4.min.css' %}"
+    />
+    <link
+      rel="stylesheet"
+      href="{% static 'plugins/datatables-buttons/css/buttons.bootstrap4.min.css' %}"
+    />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}" />
+
+    <link rel="stylesheet" href="{% static 'build/css/shopping.css' %}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&display=swap"
+      rel="stylesheet"
     />
 
     <script type="text/javascript">
@@ -45,87 +65,334 @@
       const csrftoken = getToken("csrftoken");
     </script>
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="{% url 'website:video_market' %}">DAM</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+      <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="index2.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="#" class="nav-link">Contact</a>
+                </li>
+            </ul>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'website:video_market' %}"
-              >Store <span class="sr-only">(current)</span></a
-            >
-          </li>
-        </ul>
-        <div class="form-inline my-2 my-lg-0">
-          <a href="#" class="btn btn-warning">Login</a>
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Navbar Search -->
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="navbar-search" href="#" role="button">
+                        <i class="fas fa-search"></i>
+                    </a>
+                    <div class="navbar-search-block">
+                        <form class="form-inline">
+                            <div class="input-group input-group-sm">
+                                <input class="form-control form-control-navbar" type="search" placeholder="Search"
+                                    aria-label="Search">
+                                <div class="input-group-append">
+                                    <button class="btn btn-navbar" type="submit">
+                                        <i class="fas fa-search"></i>
+                                    </button>
+                                    <button class="btn btn-navbar" type="button" data-widget="navbar-search">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html">
+                        <button class="custom-btn btn-13"><span> Logout </span></button>
+                    </a>
+                </li>
+                <li style="margin-left: 5px;" class="nav-item">
+                    <a href="{% url 'website:cart' %}">
+                        <button class="custom-btn btn-13"><i class="fas fa-shopping-cart"></i><span> Cart ({{cartItems}})</span></button>
+                    </a>
+                </li>
 
-          <a href="{% url 'website:cart' %}">
-            <img id="cart-icon" src="{% static 'images/cart.png' %}" />
-          </a>
-          <p id="cart-total">{{cartItems}}</p>
+            </ul>
+        </nav>
+
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="index2.html" class="brand-link">
+                <img src="{% static 'images/Cloud.ico' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+                    style="opacity: .8">
+                <span class="brand-text font-weight-light">DAM</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Profile Name</a>
+                    </div>
+                </div>
+
+
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                        data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+
+                        <li class="nav-item">
+                            <a href="index2.html" class="nav-link">
+                                <i class="nav-icon fas fa-chart-pie"></i>
+                                <p>
+                                    Medias
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="favorites.html" class="nav-link">
+                                <i class="nav-icon fas fa-star"></i>
+                                <p>Favorites</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="Photos.html" class="nav-link">
+                                <i class="nav-icon far fa-image"></i>
+                                <p>Photos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="musics.html" class="nav-link">
+                                <i class="nav-icon fas fa-music"></i>
+                                <p>Musics</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="videos.html" class="nav-link">
+                                <i class="nav-icon fas fa-video"></i>
+                                <p>Videos</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="documents.html" class="nav-link">
+                                <i class="nav-icon fas fa-folder"></i>
+                                <p>Documents</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="recyclebin.html" class="nav-link">
+                                <i class="nav-icon fas fa-trash"></i>
+                                <p>
+                                    Recycle bin
+
+                                </p>
+                            </a>
+
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-shopping-bag"></i>
+                                <p>
+                                    Shopping
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="shoppingphoto.html" class="nav-link">
+                                        <i class="nav-icon fas fa-camera-retro"></i>
+                                        <p>Shopping Photos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="shoppingvideo.html" class="nav-link">
+                                        <i class="nav-icon fas fa-video"></i>
+                                        <p>Shopping Videos</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="shoppingmusic.html" class="nav-link">
+                                        <i class="nav-icon fas fa-guitar"></i>
+                                        <p>Shopping Musics</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="shoppingdocuments.html" class="nav-link">
+                                        <i class="nav-icon fas fa-file-import"></i>
+                                        <p>Shopping Documents</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-12" style="text-align: center;">
+                            <h1>Shopping Videos</h1>
+                        </div>
+
+                    </div>
+                </div><!-- /.container-fluid -->
+            </section>
+
+            <!-- Main content -->
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Shopping Videos</h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                    <div class="card">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="card card-default">
+
+
+                                                    <section class="py-5 text-center container">
+                                                        <div class="row py-lg-5">
+                                                            <div class="col-lg-6 col-md-8 mx-auto">
+                                                                <h1 class="fw-light">On Sale</h1>
+                                                                <p class="lead text-muted">In this page you can see
+                                                                    other
+                                                                    people's videos that they want to sell.</p>
+                                                                <p>
+
+                                                                    <a href="shoppingvideo2.html">
+                                                                    <button style="width: auto;" class="custom-btn btn-13">My Videos on Sale</button></a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </section>
+
+                                                    <div class="album py-5 bg-light">
+                                                        <div class="container">
+
+                                                            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-3">
+                                                              {% for video in videos %}
+                                                                <div class="col">
+                                                                    <div class="card shadow">
+
+                                                                        <video width="100%" height="225"
+                                                                            controls="controls">
+                                                                            <source
+                                                                                src="{{video.video.url}}"
+                                                                                type="video/mp4">
+                                                                        </video>
+                                                                        <div class="card-body">
+                                                                            <p class="card-text">Seller Name: {{request.user.username}}
+                                                                                <br>Detail of
+                                                                                Video: {{video.description}}</p>
+                                                                            <div
+                                                                                class="d-flex justify-content-between align-items-center">
+                                                                                <div style="margin-left: 360px;"
+                                                                                    class="btn-group">
+
+                                                                                    <button type="button"
+                                                                                        class="btn btn-sm btn-info">$
+                                                                                        {{video.price|floatformat:2}}</button>
+
+                                                                                    <a style="margin-left: 8px;"
+                                                                                        > <button
+                                                                                            data-video="{{video.id}}"
+                                                                                            data-action="add"
+                                                                                            type="button"
+                                                                                            class="btn btn-sm btn-primary update-cart">Add
+                                                                                            to Cart</button></a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                              {% endfor %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                            <!-- /.card -->
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <!-- /.row -->
+
+                    <!-- /.container-fluid -->
+            </section>
+            <!-- /.content -->
         </div>
-      </div>
-    </nav>
+  </div>
 
-    <div class="container">
-      <br />
-      <div class="row">
-        {% for video in videos %}
-        <div class="col-lg-4">
-          <video width="320" height="240" controls>
-            <source src="{{video.video.url}}" type="video/mp4" />
-          </video>
-          <div class="box-element product">
-            <h6><strong>{{video.caption}}</strong></h6>
-            <hr />
+    <footer class="main-footer">
 
-            <button
-              data-video="{{video.id}}"
-              data-action="add"
-              class="btn btn-outline-secondary add-btn update-cart"
-            >
-              Add to Cart
-            </button>
+            <strong>Created by İKÜ Development Team&copy; 2021 .</strong>
+        </footer>
 
-            <a class="btn btn-outline-success" href="#">View</a>
-            <h4 style="display: inline-block; float: right">
-              <strong>${{video.price|floatformat:2}}</strong>
-            </h4>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
+    <!-- ./wrapper -->
 
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
-      crossorigin="anonymous"
-    ></script>
+    <!-- jQuery -->
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{% static 'plugins/datatables/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-bs4/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-responsive/js/responsive.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/dataTables.buttons.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'plugins/jszip/jszip.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/pdfmake.min.js' %}"></script>
+    <script src="{% static 'plugins/pdfmake/vfs_fonts.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.html5.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.print.min.js' %}"></script>
+    <script src="{% static 'plugins/datatables-buttons/js/buttons.colVis.min.js' %}"></script>
+    <!-- AdminLTE App -->
+    <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="{% static 'dist/js/demo.js' %}"></script>
+    <!-- Page specific script -->
+    <script>
+        /* Demo purposes only */
+        $(".hover").mouseleave(
+            function () {
+                $(this).removeClass("hover");
+            }
+        );
+    </script>
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
 
     <script
       type="text/javascript"
