@@ -250,7 +250,7 @@
           <div class="container-fluid">
             <div class="row mb-2">
               <div class="col-sm-12" style="text-align: center">
-                <h1>Cart</h1>
+                <h1>Payment Options</h1>
               </div>
             </div>
           </div>
@@ -265,131 +265,14 @@
               <div class="col-md-12">
                 <div class="card card-default">
                   <div class="card-header">
-                    <h3 class="card-title">
-                      Cart <small><em>You can see your cart items.</em></small>
-                    </h3>
+                    <h3 class="card-title"></h3>
                   </div>
                   <div class="card-body">
                     <div class="invoice p-3 mb-3">
-                      <!-- title row -->
-
-                      <!-- /.row -->
-
-                      <!-- Table row -->
-                      <div class="row">
-                        <div class="col-12 table-responsive">
-                          <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th>Product</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Price</th>
-                                <th>Delete</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {% for item in items %}
-                              <tr>
-                                <td>
-                                  <video width="320" height="240" controls>
-                                    <source
-                                      src="{{item.video.video.url}}"
-                                      type="video/mp4"
-                                    />
-                                  </video>
-                                </td>
-                                <td>{{item.video.caption}}</td>
-                                <td>{{item.video.description}}</td>
-                                <td>${{item.video.price|floatformat:2}}</td>
-                                <td>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary update-cart"
-                                    data-video="{{item.video.id}}"
-                                    data-action="remove"
-                                  >
-                                    <i
-                                      title="Delete"
-                                      class="far fa-trash-alt"
-                                    ></i>
-                                  </button>
-                                </td>
-                              </tr>
-                              {% endfor %}
-                            </tbody>
-                          </table>
-                        </div>
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
-
-                      <div class="row">
-                        <!-- accepted payments column -->
-                        <div class="col-6">
-                          <p class="lead">Payment Methods:</p>
-                          <img
-                            src="{% static 'dist/img/credit/visa.png' %}"
-                            alt="Visa"
-                          />
-                          <img
-                            src="{% static 'dist/img/credit/mastercard.png' %}"
-                            alt="Mastercard"
-                          />
-                          <img
-                            src="{% static 'dist/img/credit/american-express.png' %}"
-                            alt="American Express"
-                          />
-                          <img
-                            src="{% static 'dist/img/credit/paypal2.png' %}"
-                            alt="Paypal"
-                          />
-
-                          <p
-                            class="text-muted well well-sm shadow-none"
-                            style="margin-top: 10px"
-                          >
-                            Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit. Velit, hic.
-                          </p>
-                        </div>
-                        <!-- /.col -->
-                        <div class="col-6">
-                          <p class="lead">Amount: {{order.get_cart_items}}</p>
-
-                          <div class="table-responsive">
-                            <table class="table">
-                              <tr>
-                                <th>Total:</th>
-                                <td>${{order.get_cart_total|floatformat:2}}</td>
-                              </tr>
-                            </table>
-                          </div>
-                        </div>
-                        <!-- /.col -->
-                      </div>
-                      <!-- /.row -->
-
                       <!-- this row will not appear when printing -->
                       <div class="row no-print">
                         <div class="col-12">
-                          <a href="{% url 'website:checkout' %}">
-                            <button
-                              type="button"
-                              class="btn btn-success float-right"
-                            >
-                              <i class="far fa-credit-card"></i> Submit Payment
-                            </button>
-                          </a>
-                          <a href="{% url 'website:video_market' %}">
-                            <button
-                              type="button"
-                              class="btn btn-primary float-right"
-                            >
-                              <i class="fas fa-angle-left"></i> Continue
-                              Shopping
-                            </button>
-                          </a>
+                          <div id="paypal-button-container"></div>
                         </div>
                       </div>
                     </div>
@@ -419,6 +302,55 @@
       <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
+
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <script>
+      // Render the PayPal button into #paypal-button-container
+      paypal
+        .Buttons({
+          // Set up the transaction
+          createOrder: function (data, actions) {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: "88.44",
+                  },
+                },
+              ],
+            });
+          },
+
+          // Finalize the transaction
+          onApprove: function (data, actions) {
+            return actions.order.capture().then(function (orderData) {
+              // Successful capture! For demo purposes:
+              console.log(
+                "Capture result",
+                orderData,
+                JSON.stringify(orderData, null, 2)
+              );
+              var transaction =
+                orderData.purchase_units[0].payments.captures[0];
+              alert(
+                "Transaction " +
+                  transaction.status +
+                  ": " +
+                  transaction.id +
+                  "\n\nSee console for all available details"
+              );
+
+              // Replace the above to show a success message within this page, e.g.
+              // const element = document.getElementById('paypal-button-container');
+              // element.innerHTML = '';
+              // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+              // Or go to another URL:  actions.redirect('thank_you.html');
+            });
+          },
+        })
+        .render("#paypal-button-container");
+    </script>
 
     <!-- jQuery -->
     <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>

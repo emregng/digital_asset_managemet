@@ -53,6 +53,21 @@ def cart(request):
 
 
 @login_required(redirect_field_name='accounts:login')
+def checkout(request):
+
+    if request.user.is_authenticated:
+        customer = request.user.customer
+        order, created = Order.objects.get_or_create(
+            customer=customer, complete=False)
+        items = order.orderitem_set.all()
+    else:
+        items = []
+
+    context = {'items': items, 'order': order}
+    return render(request, 'home/checkout.html', context)
+
+
+@login_required(redirect_field_name='accounts:login')
 def show_photos(request):
     photos = Photos.objects.all()
     if 'shuffle_item' in request.POST:
